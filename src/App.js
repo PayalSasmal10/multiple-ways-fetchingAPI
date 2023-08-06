@@ -1,23 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import {useFetch} from './UseFetch';
 
 function App() {
+  const url = "https://jsonplaceholder.typicode.com/todos/";
+  
+  const {apiData, isPending } = useFetch(url);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Title</h1>
+      {isPending && <div>Loading</div>}
+      {apiData.map((data) => {
+        return(
+          <div key={data.id}>
+            <p>{data.title}</p>
+          </div>
+        )
+        })}
     </div>
   );
 }
